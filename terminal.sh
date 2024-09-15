@@ -2,7 +2,9 @@
 
 # Step 1: Install Starship
 echo "Installing Starship..."
-curl -sS https://starship.rs/install.sh | sh
+wget https://starship.rs/install.sh -O /tmp/starship_install.sh
+chmod +x /tmp/starship_install.sh
+sudo -u "$SUDO_USER" sh /tmp/starship_install.sh -y
 
 # Step 2: Add Starship initialization to ~/.bashrc if it's not already there
 BASHRC_FILE="$HOME/.bashrc"
@@ -24,6 +26,6 @@ fi
 
 # Step 4: Set the "pure" preset and output it to ~/.config/starship.toml
 echo "Setting the Starship 'pure' preset..."
-starship preset pure-preset -o "$CONFIG_DIR/starship.toml"
+sudo -u "$SUDO_USER" starship preset pure-preset -o "$CONFIG_DIR/starship.toml"
 
 echo "Starship setup complete! Please restart your terminal or run 'source ~/.bashrc' to apply the changes."
