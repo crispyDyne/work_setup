@@ -27,9 +27,6 @@ git config --global user.email "cd.patton@gmail.com"
 # Get the user's home directory
 USER_HOME=$(eval echo ~"$SUDO_USER")
 
-# # Create repos folder in the current user's home directory
-# sudo -u "$SUDO_USER" mkdir -p "$USER_HOME/repos"
-
 # Clone the crispyDyne/work_setup repository into the repos folder
 sudo -u "$SUDO_USER" git clone https://github.com/crispyDyne/work_setup.git "$USER_HOME/repos/work_setup"
 
