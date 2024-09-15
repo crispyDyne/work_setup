@@ -2,7 +2,7 @@
 
 # may need to make the file executable chmod +x setup.sh
 
-Update and upgrade the system
+# Update and upgrade the system
 sudo apt update && sudo apt upgrade -y
 
 # Install Google Chrome
@@ -20,20 +20,20 @@ sudo apt install code -y
 # Install Git
 sudo apt install git -y
 
-# Set Git global user config
-git config --global user.name "Chris Patton"
-git config --global user.email "cd.patton@gmail.com"
-
 # Get the user's home directory
 USER_HOME=$(eval echo ~"$SUDO_USER")
+
+# Set Git global user config for the non-root user
+sudo -u "$SUDO_USER" git config --global user.name "Chris Patton"
+sudo -u "$SUDO_USER" git config --global user.email "cd.patton@gmail.com"
 
 # Clone the crispyDyne/work_setup repository into the repos folder
 sudo -u "$SUDO_USER" git clone https://github.com/crispyDyne/work_setup.git "$USER_HOME/repos/work_setup"
 
 # Copy VS Code settings from the repository to the local machine
-cp "$USER_HOME/repos/work_setup/vscode/settings.json" "$USER_HOME/.config/Code/User/settings.json"
+sudo -u "$SUDO_USER" cp "$USER_HOME/repos/work_setup/vscode/settings.json" "$USER_HOME/.config/Code/User/settings.json"
 
-# Install VS Code extensions
+# Install VS Code extensions as the regular user
 for ext in GitHub.copilot eamodio.gitlens streetsidesoftware.code-spell-checker; do
   sudo -u "$SUDO_USER" code --install-extension "$ext"
 done
