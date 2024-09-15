@@ -22,10 +22,19 @@ sudo apt install git -y
 git config --global user.name "Chris Patton"
 git config --global user.email "cd.patton@gmail.com"
 
-# Create repos folder in home directory
-mkdir -p ~/repos
+# Create repos folder in the current user's home directory
+mkdir -p "$HOME/repos"
 
-# Clone the crispyDyne/ubuntu_home repository
-git clone https://github.com/crispyDyne/work_setup.git ~/repos/work_setup
+# Clone the crispyDyne/ubuntu_home repository into the repos folder
+git clone https://github.com/crispyDyne/work_setup.git "$HOME/repos/work_setup"
+
+# Copy VS Code settings from the repository to the local machine
+cp "$HOME/repos/work_setup/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
+
+# Install desired VS Code extensions
+# sudo -u "$SUDO_USER" code --install-extension GitHub.copilot # specificly do not run as sudo. Do I need to?
+code --install-extension GitHub.copilot
+code --install-extension eamodio.gitlens
+code --install-extension streetsidesoftware.code-spell-checker
 
 echo "Setup complete!"
