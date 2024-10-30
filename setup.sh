@@ -27,13 +27,34 @@ git config --global user.email "cd.patton@gmail.com"
 # Clone the crispyDyne/work_setup repository into the repos folder
 git clone https://github.com/crispyDyne/work_setup.git "$HOME/repos/work_setup"
 
+# List of VS Code extensions to install
+extensions=(
+  "GitHub.copilot"
+  "eamodio.gitlens"
+  "streetsidesoftware.code-spell-checker"
+  # rust stuff
+  "rust-lang.rust-analyzer"
+  "tamasfe.even-better-toml"
+  # python stuff
+  "ms-python.python"
+)
+
 # Install VS Code extensions as the regular user
-for ext in GitHub.copilot eamodio.gitlens streetsidesoftware.code-spell-checker; do
+for ext in "${extensions[@]}"; do
   code --install-extension "$ext"
 done
 
 # Copy VS Code settings from the repository to the local machine
 # Do after extensions are installed so that the folder structure is already created
 cp "$HOME/repos/work_setup/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
+
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+sudo apt install build-essential -y
+sudo apt install pkg-config -y
+# need alsa
+sudo apt install libasound2-dev -y
+sudo apt install libudev-dev
+
 
 echo "Setup complete!"
